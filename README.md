@@ -180,11 +180,13 @@ Since there is no phishing component or email-based delivery vector to analyze h
 
 <img width="999" height="405" alt="image" src="https://github.com/user-attachments/assets/e4dc22cc-3d4e-4292-81a5-87da9c8a4e26" />
 
+---
+
 * The attack was not successful based on the endpoint telemetry.
 
 The Endpoint Security logs for the targeted server (172.16.17.15) under the Terminal History tab reveal that no anomalous activity or post-exploitation commands were executed following the alert.
 
-These are Reasons why the attack failed to compromise the system:
+### These are Reasons why the attack failed to compromise the system:
 
 • Legitimate Deployment Commands Only: The only commands recorded in the terminal history are routine management actions executed earlier that day:
 	```• docker-compose -f docker-compose-deploy.yml build (14:21)
@@ -194,4 +196,54 @@ These are Reasons why the attack failed to compromise the system:
 
 • Scope of IDOR: While the log management screen showed that the web application returned an HTTP 200 code for the IDOR scanning attempt (indicating data about user_id=1 to 5 may have been exposed at the application layer), it did not result in host-level compromise, remote code execution (RCE), or system takeover.
 
+---
+
+### Key artifacts for the indicators of compromise (IoC) for this case.
+
+• Value: 134.209.118.137
+• Comment: Malicious source IP initiating IDOR attack
+• Type: Select IP from the dropdown menu.
+
+Click the "+" icon in the top left of the modal to add a second row, then enter the following details for the second artifact:
+• Value: 172.16.17.15
+• Comment: Targeted internal web server
+• Type: Select IP from the dropdown menu.
+
+<img width="986" height="574" alt="image" src="https://github.com/user-attachments/assets/7763c464-d1ad-4e5b-94e8-23df1b978b18" />
+
+---
+
+### * Select **No.**
+<img width="983" height="646" alt="image" src="https://github.com/user-attachments/assets/d3978e9b-3447-4fe8-bf30-dc6a17ca168a" />
+
+### Reasons Why Tier 2 Escalation is Not Required
+
+• The attack did not succeed: As established in the previous endpoint telemetry check, there was no host-level compromise, no malicious commands executed in the terminal history, and no unauthorized shell access.
+
+• Playbook Rule: The criteria on the screen explicitly state that Tier 2 escalation is not required "In cases where attacks from the Internet do not succeed."
+
+---
+
+<img width="1003" height="491" alt="image" src="https://github.com/user-attachments/assets/18cc590d-1456-481e-95e9-589f0588c8b3" />
+
+```
+I investigated an alert for a possible IDOR (Insecure Direct Object Reference) attack targeting the internal web server (172.16.17.15) from an external IP address (134.209.118.137) hosted on DigitalOcean infrastructure. 
+
+Log management analysis revealed multiple inbound HTTP POST requests directed at the '/get_user_info/' endpoint using numeric account parameters (?user_id=1, ?user_id=2, ?user_id=3, ?user_id=4 and ?user_id=5) and a highly anomalous/spoofed User-Agent string (Internet Explorer 6 on Windows XP). The device action was permitted with an HTTP 200 OK response status, confirming active enumeration attempts at the application layer.
+
+Further verification via Endpoint Security telemetry showed that the attack was NOT successful at the host level. The server's terminal history revealed only legitimate docker-compose deployment commands, with zero evidence of malicious shell execution, reverse connections, or system compromise. Tier 2 escalation is not required as the exploitation attempt failed to compromise the underlying operating system. The alert is confirmed as a True Positive web attack attempt that was contained before causing further damage. 
+
+Remediation Recommended: Implement strict object-level access control checks on the '/get_user_info/' endpoint to ensure users can only query their own data, and consider blocking the attacker IP (134.209.118.137) at the edge firewall.
+
+```
+
+---
+
+### **Click Confirm & Close** 
+
+* To officially submit and close out this case (Ticket)
+
+<img width="1010" height="442" alt="image" src="https://github.com/user-attachments/assets/3ee7f090-eb6c-4daa-8272-2f775319046f" />
+
+---
 
