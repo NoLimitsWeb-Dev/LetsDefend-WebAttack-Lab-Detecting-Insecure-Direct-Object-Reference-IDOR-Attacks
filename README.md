@@ -75,5 +75,44 @@ This helps map out the direction of the traffic, the communication flow, and the
 |  Source Port  |  Destination Port  |
 |  :---  |  :---  |
 |  Attacker  |  Victim  |
-|  Ports Used: Typically high-numbered ephemeral ports (e.g., above 1024 like 50000+ or 4433 depending on the specific log line).  |  Port Used: 443 (HTTPS).  |
+|  Ports Used: Typically high-numbered ephemeral ports 49211, 48523, 47274, 43461 and 49271.  |  Port Used: 443 (HTTPS).  |
 |  Reputation: These are standard dynamic client-side ports generated automatically by the attacker's system to establish an outbound TCP connection.  |  Reputation: These are trusted, standard ports used globally to host public-facing websites and secure web communication.  |
+
+---
+
+<img width="977" height="683" alt="image" src="https://github.com/user-attachments/assets/9eda5fec-f5be-4f74-95cc-3807ac145417" />
+
+
+### External Traffic Data (Internet IP Analysis)
+
+• Ownership / ISP: DigitalOcean, LLC
+
+• Usage Type: Data Center / Web Hosting / Transit
+
+• Geographic Location: North Bergen, New Jersey, United States
+
+---
+
+<img width="1917" height="903" alt="image" src="https://github.com/user-attachments/assets/ebc29ac5-0f7b-4b9c-8a52-a20b8cf8ffbc" />
+
+• VirusTotal Reputation: 0 / 92 Malicious Flags (Completely clean according to security vendors, though it holds a community score of -5).
+
+---
+
+<img width="1893" height="908" alt="image" src="https://github.com/user-attachments/assets/020bf249-302c-4ca6-88c7-aecc704b0be1" />
+<img width="1907" height="828" alt="image" src="https://github.com/user-attachments/assets/e0571327-f9f4-4936-8ba6-1f7feda79ebf" />
+
+• AbuseIPDB Reputation: 0% Abuse Confidence Score (Low Risk). While it has been reported 1,537 times historically, there are no reports in the last 60 days, indicating its abusive activity has decayed or stopped recently.
+
+---
+
+Summary Analysis:
+
+The IP belongs to a public cloud provider/VPS infrastructure (DigitalOcean). While threat intelligence engines currently rate it as "clean" due to a lack of recent activity (last 60 days), its classification as a hosted data center IP makes it highly suspicious when initiating inbound web attacks, as threat actors frequently rent temporary cloud servers to launch automated exploit campaigns.
+
+---
+
+<img width="987" height="726" alt="image" src="https://github.com/user-attachments/assets/49734c43-5e8c-402d-8094-db7f0f1ddac5" />
+
+|  Date: 2022-02-28 19:45:00  |  Request URL: https://172.16.17.15/get_user_info/  |  Device Action: Permitted  |  Request Method: POST  |  POST Parameters: ?user_id=2  |  HTTP Response Size:: 253  |  HTTP Response Status: 200  |
+|  :---  |  :---  |  :---  |  :---  |  :---  |  :---  |  :---  |
