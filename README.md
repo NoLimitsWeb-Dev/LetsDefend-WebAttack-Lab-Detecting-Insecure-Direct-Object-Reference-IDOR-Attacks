@@ -245,3 +245,11 @@ Remediation Recommended: Maintain host isolation until code review is complete. 
 
 ---
 
+### FINAL RESULTS 
+
+<img width="1917" height="833" alt="image" src="https://github.com/user-attachments/assets/c39eb1c6-472b-4b31-98cf-15e9e16326f1" />
+<img width="1900" height="505" alt="image" src="https://github.com/user-attachments/assets/66990f42-a0c8-445a-b711-aead302df829" />
+<img width="1901" height="542" alt="image" src="https://github.com/user-attachments/assets/0bf58bd4-6037-44d4-8154-df574c97fa03" />
+<img width="1915" height="339" alt="image" src="https://github.com/user-attachments/assets/aa8b5f20-0a2e-466e-8de3-e06ca60921e4" />
+
+---
