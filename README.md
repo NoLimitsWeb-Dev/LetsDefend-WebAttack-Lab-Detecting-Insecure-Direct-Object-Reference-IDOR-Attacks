@@ -176,25 +176,15 @@ Since there is no phishing component or email-based delivery vector to analyze h
 
 <img width="1899" height="870" alt="image" src="https://github.com/user-attachments/assets/d3b8272a-60e0-46e5-b40b-6a65d4f94341" />
 
-* Click **No,**
+* Click **Yes**
 
-<img width="999" height="405" alt="image" src="https://github.com/user-attachments/assets/e4dc22cc-3d4e-4292-81a5-87da9c8a4e26" />
+<img width="1002" height="422" alt="image" src="https://github.com/user-attachments/assets/64f53635-dd0a-4964-aa22-e53425ab3c51" />
 
 ---
 
-* The attack was not successful based on the endpoint telemetry.
+### * The attack was successful based on the entries in the Log Management.
 
-The Endpoint Security logs for the targeted server (172.16.17.15) under the Terminal History tab reveal that no anomalous activity or post-exploitation commands were executed following the alert.
-
-### These are Reasons why the attack failed to compromise the system:
-
-• Legitimate Deployment Commands Only: The only commands recorded in the terminal history are routine management actions executed earlier that day:
-	```• docker-compose -f docker-compose-deploy.yml build (14:21)
-	• docker-compose -f docker-compose-deploy.yml up (14:26)```
-
-• No Unauthorized Shell Access: There are no signs of malicious reverse shells, backdoors, automated downloads (wget/curl), account creations, or privilege escalation attempts.
-
-• Scope of IDOR: While the log management screen showed that the web application returned an HTTP 200 code for the IDOR scanning attempt (indicating data about user_id=1 to 5 may have been exposed at the application layer), it did not result in host-level compromise, remote code execution (RCE), or system takeover.
+In web-application security alerts like IDOR, a "successful attack" does not require the attacker to gain command-line shell access, root privileges, or compromise the server's backend terminal. Because the raw log showed an HTTP 200 OK status code with several response body sizes of 253, 188, 351, 158 and 267 bytes when accessing ?user_id=1, ?user_id=2, ?user_id=3, ?user_id=4 and ?user_id=5 respectively, the application successfully processed the unauthorized requests and leaked the requested users data. The data exfiltration/privacy breach itself means the exploit succeeded.
 
 ---
 
@@ -213,14 +203,13 @@ Click the "+" icon in the top left of the modal to add a second row, then enter 
 
 ---
 
-### * Select **No.**
-<img width="983" height="646" alt="image" src="https://github.com/user-attachments/assets/d3978e9b-3447-4fe8-bf30-dc6a17ca168a" />
+### * Select **Yes**
 
-### Reasons Why Tier 2 Escalation is Not Required
+<img width="996" height="375" alt="image" src="https://github.com/user-attachments/assets/f2675020-5995-4c02-a430-fff8a06808fc" />
 
-• The attack did not succeed: As established in the previous endpoint telemetry check, there was no host-level compromise, no malicious commands executed in the terminal history, and no unauthorized shell access.
+### Reasons Why Tier 2 Escalation is Required
 
-• Playbook Rule: The criteria on the screen explicitly state that Tier 2 escalation is not required "In cases where attacks from the Internet do not succeed."
+• According to the escalation criteria card shown earlier: "In cases where the attack succeeds, Tier 2 escalation should be performed." Because the IDOR vulnerability successfully returned data to the attacker, senior analysts need to be notified to perform full data-impact assessments, coordinate with developers to patch the code, and notify affected users if necessary.
 
 ---
 
@@ -244,6 +233,7 @@ Remediation Recommended: Implement strict object-level access control checks on 
 * To officially submit and close out this case (Ticket)
 
 <img width="1010" height="442" alt="image" src="https://github.com/user-attachments/assets/3ee7f090-eb6c-4daa-8272-2f775319046f" />
+<img width="807" height="583" alt="image" src="https://github.com/user-attachments/assets/77994452-5259-4761-ad67-b0bd27071422" />
 
 ---
 
