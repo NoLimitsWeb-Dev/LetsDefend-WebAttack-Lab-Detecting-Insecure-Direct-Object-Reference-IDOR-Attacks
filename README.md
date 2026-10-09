@@ -106,7 +106,7 @@ This helps map out the direction of the traffic, the communication flow, and the
 
 ---
 
-Summary Analysis:
+### Summary Analysis:
 
 The IP belongs to a public cloud provider/VPS infrastructure (DigitalOcean). While threat intelligence engines currently rate it as "clean" due to a lack of recent activity (last 60 days), its classification as a hosted data center IP makes it highly suspicious when initiating inbound web attacks, as threat actors frequently rent temporary cloud servers to launch automated exploit campaigns.
 
@@ -116,7 +116,7 @@ The IP belongs to a public cloud provider/VPS infrastructure (DigitalOcean). Whi
 
 ---
 
-### The Table Below shows the Raw Log provided in the Log Management, here is the breakdown of the HTTP traffic for investigation:
+### The Table Below shows the Raw Log entries in the Log Management, here is the breakdown of the HTTP traffic for investigation:
 
 |  **User-Agent:**  |  **Date:**  |  **Request URL:**  |  **Device Action:**  |  **Request Method:**  |  **POST Parameters:**  |  **HTTP Response Size:**  |  **HTTP Response Status:**  |
 |  :---  |  :---  |  :---  |  :---  |  :---  |  :---  |  :---  |  :---  |
@@ -143,7 +143,7 @@ Based on the above evidences gathered previously (Key Analytical Findings) the o
 
 ---
 
-### * Click **Yes**
+### * Click **IDOR**
 
 <img width="981" height="400" alt="image" src="https://github.com/user-attachments/assets/917e37f4-f91c-43fe-8cd1-6eb7a372c452" />
 
@@ -155,7 +155,10 @@ Based on the above evidences gathered previously (Key Analytical Findings) the o
 
 ---
 
+### * Click **Not Planned**
+
 <img width="1913" height="864" alt="image" src="https://github.com/user-attachments/assets/999e98b9-7860-4462-8395-91e38efb9891" />
+<img width="991" height="603" alt="image" src="https://github.com/user-attachments/assets/e1fbb6a2-dce8-4b3f-acec-97099fc18c66" />
 
 The image above shows the Email Security dashboard on the LetsDefend platform, filtered for the date range 2023-07-25 to 2023-07-28. The screen states "There is no email to display" (0 emails).
 
