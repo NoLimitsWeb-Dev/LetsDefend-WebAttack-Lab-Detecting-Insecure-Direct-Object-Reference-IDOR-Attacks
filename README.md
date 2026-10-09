@@ -164,3 +164,34 @@ This outcome is completely expected for this investigation. Because SOC169 is a 
 Since there is no phishing component or email-based delivery vector to analyze here, you can safely confirm that no email artifacts exist for this incident.
 
 ---
+
+<img width="998" height="461" alt="image" src="https://github.com/user-attachments/assets/838c8c48-bdf3-44cd-acd2-11223250fb38" />
+
+* Click **Internet --> Company Network**
+  * Because SOC169 is a web-based IDOR attack executing HTTP POST requests directly against a web server.
+
+---
+
+<img width="984" height="721" alt="image" src="https://github.com/user-attachments/assets/54cbfc0a-40ac-4907-859e-ed990c1de9df" />
+
+<img width="1899" height="870" alt="image" src="https://github.com/user-attachments/assets/d3b8272a-60e0-46e5-b40b-6a65d4f94341" />
+
+* Click **No,**
+
+<img width="999" height="405" alt="image" src="https://github.com/user-attachments/assets/e4dc22cc-3d4e-4292-81a5-87da9c8a4e26" />
+
+* The attack was not successful based on the endpoint telemetry.
+
+The Endpoint Security logs for the targeted server (172.16.17.15) under the Terminal History tab reveal that no anomalous activity or post-exploitation commands were executed following the alert.
+
+These are Reasons why the attack failed to compromise the system:
+
+• Legitimate Deployment Commands Only: The only commands recorded in the terminal history are routine management actions executed earlier that day:
+	```• docker-compose -f docker-compose-deploy.yml build (14:21)
+	• docker-compose -f docker-compose-deploy.yml up (14:26)```
+
+• No Unauthorized Shell Access: There are no signs of malicious reverse shells, backdoors, automated downloads (wget/curl), account creations, or privilege escalation attempts.
+
+• Scope of IDOR: While the log management screen showed that the web application returned an HTTP 200 code for the IDOR scanning attempt (indicating data about user_id=1 to 5 may have been exposed at the application layer), it did not result in host-level compromise, remote code execution (RCE), or system takeover.
+
+
