@@ -178,7 +178,7 @@ Since there is no phishing component or email-based delivery vector to analyze h
 
 * Click **Yes**
 
-<img width="1002" height="422" alt="image" src="https://github.com/user-attachments/assets/64f53635-dd0a-4964-aa22-e53425ab3c51" />
+<img width="996" height="375" alt="image" src="https://github.com/user-attachments/assets/f2675020-5995-4c02-a430-fff8a06808fc" />
 
 ---
 
@@ -188,6 +188,14 @@ In web-application security alerts like IDOR, a "successful attack" does not req
 
 ---
 
+<img width="980" height="691" alt="image" src="https://github.com/user-attachments/assets/ed1b67d0-fc7c-472c-9741-af1f4fae74db" />
+
+• Go to Endpoint Security: Filter for the target server (172.16.17.15).
+• Isolate the Host: Click the Request Containment button next to that device to cut off its network access and restrict further malicious activity.
+
+<img width="1909" height="849" alt="image" src="https://github.com/user-attachments/assets/51a1ab9c-1f4f-4343-b6dd-133c9245ee20" />
+
+---
 ### Key artifacts for the indicators of compromise (IoC) for this case.
 
 • Value: 134.209.118.137
@@ -205,7 +213,7 @@ Click the "+" icon in the top left of the modal to add a second row, then enter 
 
 ### * Select **Yes**
 
-<img width="996" height="375" alt="image" src="https://github.com/user-attachments/assets/f2675020-5995-4c02-a430-fff8a06808fc" />
+<img width="978" height="648" alt="image" src="https://github.com/user-attachments/assets/efc5c3dd-4b8a-4f74-a2d3-2b0e237f4af5" />
 
 ### Reasons Why Tier 2 Escalation is Required
 
@@ -213,16 +221,16 @@ Click the "+" icon in the top left of the modal to add a second row, then enter 
 
 ---
 
-<img width="1003" height="491" alt="image" src="https://github.com/user-attachments/assets/18cc590d-1456-481e-95e9-589f0588c8b3" />
+<img width="993" height="553" alt="image" src="https://github.com/user-attachments/assets/f849f94d-3390-4460-90a6-e6ae47df2fde" />
 
 ```
-I investigated an alert for a possible IDOR (Insecure Direct Object Reference) attack targeting the internal web server (172.16.17.15) from an external IP address (134.209.118.137) hosted on DigitalOcean infrastructure. 
+I investigated an alert for an IDOR (Insecure Direct Object Reference) attack targeting the internal web server (172.16.17.15) from an external cloud IP address (134.209.118.137) hosted on DigitalOcean infrastructure. 
 
-Log management analysis revealed multiple inbound HTTP POST requests directed at the '/get_user_info/' endpoint using numeric account parameters (?user_id=1, ?user_id=2, ?user_id=3, ?user_id=4 and ?user_id=5) and a highly anomalous/spoofed User-Agent string (Internet Explorer 6 on Windows XP). The device action was permitted with an HTTP 200 OK response status, confirming active enumeration attempts at the application layer.
+Log management analysis revealed multiple inbound HTTP POST requests directed at the '/get_user_info/' endpoint using unauthorized numeric account parameters (?user_id=1, ?user_id=2, ?user_id=3, ?user_id=4 and ?user_id=5) alongside a spoofed User-Agent string (Internet Explorer 6 on Windows XP). The web application permitted these requests and returned an HTTP 200 OK response with these consistent payload sizes of 253, 188, 351, 158 and 267 bytes. This confirms that the attack successfully bypassed proper authorization checks and exposed sensitive user information at the application layer, classifying the incident as a True Positive. 
 
-Further verification via Endpoint Security telemetry showed that the attack was NOT successful at the host level. The server's terminal history revealed only legitimate docker-compose deployment commands, with zero evidence of malicious shell execution, reverse connections, or system compromise. Tier 2 escalation is not required as the exploitation attempt failed to compromise the underlying operating system. The alert is confirmed as a True Positive web attack attempt that was contained before causing further damage. 
+Because data exposure occurred, the host was determined to be compromised at the application level. Remediation and containment procedures were initiated immediately: network isolation was requested via the Endpoint Security console using the "Request Containment" feature to restrict the attacker, prevent further automated scanning, and limit operational impact. Tier 2 escalation has been performed for advanced impact analysis, data breach verification, and remediation coordination.
 
-Remediation Recommended: Implement strict object-level access control checks on the '/get_user_info/' endpoint to ensure users can only query their own data, and consider blocking the attacker IP (134.209.118.137) at the edge firewall.
+Remediation Recommended: Maintain host isolation until code review is complete. Implement strict server-side, object-level access controls checks on the '/get_user_info/' endpoint to ensure authenticated users can only access their own records. Permanently block the malicious source IP (134.209.118.137) on edge firewalls.
 
 ```
 
