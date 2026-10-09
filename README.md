@@ -157,8 +157,8 @@ Based on the above evidences gathered previously (Key Analytical Findings) the o
 
 ### * Click **Not Planned**
 
-<img width="1913" height="864" alt="image" src="https://github.com/user-attachments/assets/999e98b9-7860-4462-8395-91e38efb9891" />
 <img width="991" height="603" alt="image" src="https://github.com/user-attachments/assets/e1fbb6a2-dce8-4b3f-acec-97099fc18c66" />
+<img width="1913" height="864" alt="image" src="https://github.com/user-attachments/assets/999e98b9-7860-4462-8395-91e38efb9891" />
 
 The image above shows the Email Security dashboard on the LetsDefend platform, filtered for the date range 2023-07-25 to 2023-07-28. The screen states "There is no email to display" (0 emails).
 
