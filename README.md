@@ -114,5 +114,53 @@ The IP belongs to a public cloud provider/VPS infrastructure (DigitalOcean). Whi
 
 <img width="987" height="726" alt="image" src="https://github.com/user-attachments/assets/49734c43-5e8c-402d-8094-db7f0f1ddac5" />
 
-|  Date: 2022-02-28 19:45:00  |  Request URL: https://172.16.17.15/get_user_info/  |  Device Action: Permitted  |  Request Method: POST  |  POST Parameters: ?user_id=2  |  HTTP Response Size:: 253  |  HTTP Response Status: 200  |
-|  :---  |  :---  |  :---  |  :---  |  :---  |  :---  |  :---  |
+---
+
+### The Table Below shows the Raw Log provided in the Log Management, here is the breakdown of the HTTP traffic for investigation:
+
+|  **User-Agent:**  |  **Date:**  |  **Request URL:**  |  **Device Action:**  |  **Request Method:**  |  **POST Parameters:**  |  **HTTP Response Size:**  |  **HTTP Response Status:**  |
+|  :---  |  :---  |  :---  |  :---  |  :---  |  :---  |  :---  |  :---  |
+|  Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; .NET CLR 1.1.4322)  |  2022-02-28 19:45:00  |  https://172.16.17.15/get_user_info/  |  Permitted  |  POST  |  ?user_id=2  |  253  |  200  |
+|  Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; .NET CLR 1.1.4322)  |  2022-02-28 19:45:43  |  https://172.16.17.15/get_user_info/  |  Permitted  |  POST  |  ?user_id=1  |  188  |  200  |
+|  Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; .NET CLR 1.1.4322)  |  2022-02-28 19:46:14  |  https://172.16.17.15/get_user_info/  |  Permitted  |  POST  |  ?user_id=3  |  351  |  200  |
+|  Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; .NET CLR 1.1.4322)  |  2022-02-28 19:47:37  |  https://172.16.17.15/get_user_info/  |  Permitted  |  POST  |  ?user_id=4  |  158  |  200  |
+|  Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; .NET CLR 1.1.4322)  |  2022-02-28 19:48:01  |  https://172.16.17.15/get_user_info/  |  Permitted  |  POST  |  ?user_id=5  |  267  |  200  |
+
+
+### Key Analytical Findings
+
+• Suspicious **User-Agent:** The request uses an ancient User-Agent string corresponding to Internet Explorer 6.0 on Windows XP. This is a massive red flag in a modern production environment, strongly suggesting an automated scanner, exploit tool, or manual script spoofing the browser identity.
+
+• Successful Response: The HTTP Response Status is 200 (OK) and the Device Action is Permitted, meaning the web application successfully processed the request and sent a response payload back to the attacker.
+
+• Evidence of IDOR: The parameters ?user_id=1, ?user_id=2, ?user_id=3, ?user_id=4 and ?user_id=5 explicitly point to numeric accounts manipulation targeting users records via the /get_user_info/ endpoint.
+
+---
+
+<img width="988" height="504" alt="image" src="https://github.com/user-attachments/assets/346e2f65-1522-495e-94e8-069796ace5ad" />
+
+Based on the above evidences gathered previously (Key Analytical Findings) the option is to click **Malicious.**
+
+---
+
+### * Click **Yes**
+
+<img width="981" height="400" alt="image" src="https://github.com/user-attachments/assets/917e37f4-f91c-43fe-8cd1-6eb7a372c452" />
+
+
+### Supporting Evidence
+
+• Alert Rule Name: The original alert explicitly stated SOC169 - Possible IDOR Attack Detected.
+• Traffic Evidence: The raw logs showed direct object parameters manipulation (?user_id=1, ?user_id=2, ?user_id=3, ?user_id=4 and ?user_id=5) targeting the private user information endpoint (/get_user_info/), which is the definitive behavior of an Insecure Direct Object Reference exploit attempt.
+
+---
+
+<img width="1913" height="864" alt="image" src="https://github.com/user-attachments/assets/999e98b9-7860-4462-8395-91e38efb9891" />
+
+The image above shows the Email Security dashboard on the LetsDefend platform, filtered for the date range 2023-07-25 to 2023-07-28. The screen states "There is no email to display" (0 emails).
+
+This outcome is completely expected for this investigation. Because SOC169 is a web-based IDOR attack executing HTTP POST requests directly against a web server, the delivery mechanism bypasses email entirely.
+
+Since there is no phishing component or email-based delivery vector to analyze here, you can safely confirm that no email artifacts exist for this incident.
+
+---
